@@ -4,7 +4,7 @@
         `/home/$USER/.config/eww/Scripts/clipboard_manager.py`)
 
 (defpoll time :interval "20s"
-	`date +" %a %b %d %I:%M %p"`)
+	`date +" %a %b %d %H:%M %p"`)
 
 (defpoll battery :interval "30s"
 	`/home/$USER/.config/eww/Scripts/battery.py`)
@@ -22,31 +22,33 @@
         `/home/$USER/.config/eww/Scripts/song_status.py`)
 
 
+(defwindow testwindow
+		:monitor 0
+		:geometry ( geometry :x "0%"
+							:y "20px"
+							:width "90%"
+							:height "30px"
+		:anchor "top left")
+		:windowtype "normal"
+		:stacking "fg"
+		"example cont")
 (defwindow bar
 	:monitor 0
 	:windowtype "dock"
 	:geometry (geometry 
 			:width "100%"
-			:height "4%"
+			:height "3%"
 			:anchor "top center"
 			)
 	:exclusive true	
 
 	(box :class "main-container"
-	
-	(box :class "music" :halign "center" :spacing 10 :space-evenly false  
-        	
-        (literal :content "(box :class \"music_icon\" (button :class \"music_icon_butt\" :onclick \"${home_dir}/toggle_playlist_selector.py\" \"󰲸\" ))")
-	(literal :halign "center" :content "(box :class \"music_text\" (label :text \"${song_status}\" ))")
-        )
-	(box :class "workspaces" :halign "center" 
-	(literal :content "${workspaces}")
-	)
-
-
-	(button :class "time_battery" :onclick "${home_dir}/toggle_clipboard_manager.py" :halign "end" "${wifi} ${volume} ${battery} ${time}"
-	)
-
+		(button :class "songs" :halign "start" :onclick "${home_dir}/toggle_playlist_selector.py" 
+			(box :class "songs_icon" :spacing 5
+					(label :halign "center" :text "${song_status}")))
+		(box :class "workspaces" :halign "center" 
+			(literal :content "${workspaces}"))
+		(button :class "time_battery" :onclick "${home_dir}/toggle_clipboard_manager.py" :halign "end" "${wifi} ${volume} ${battery} ${time}")
 	)
 )
 
@@ -69,7 +71,7 @@
   :geometry (geometry
               :y "-4px"
               :width "16%"
-              :anchor "top center"
+              :anchor "top left"
               )
   (box :orientation "vertical"
     (button :class "playlist_button" :onclick "${home_dir}/playlist_selector.py modern" "Modern")

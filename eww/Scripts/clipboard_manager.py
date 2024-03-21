@@ -6,25 +6,14 @@ import subprocess
 clipboard_history = subprocess.run("cliphist list",
                                    shell=True,
                                    capture_output=True).stdout.decode("utf-8").split("\n")
-
 del clipboard_history[-1]
-
-#Remove Git tokens (or any other desired passwords)
-token = ""
 
 index = len(clipboard_history) - 1
 
-while index >= 0:
-    
-    if token in clipboard_history[index]:
-        del clipboard_history[index]
-    
-    index -= 1
 
 #Select only 5 most recent copied things
 if len(clipboard_history) > 5:
     clipboard_history = clipboard_history[0:5]
-
 #Format selected items
 for index,item in enumerate(clipboard_history):
     clipboard_history[index] = item[4:]

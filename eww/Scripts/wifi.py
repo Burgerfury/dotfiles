@@ -5,7 +5,7 @@ import subprocess
 icons = ["󰤨","󰤭"]
 
 #Get current wifi card status
-battery_status = subprocess.run("iw wlp170s0 link | grep SSID",
+battery_status = subprocess.run("nmcli -t -f NAME connection show --active | awk 'NR==1 {print}'",
                                 shell = True,
                                 capture_output=True).stdout.decode("utf-8")
 
